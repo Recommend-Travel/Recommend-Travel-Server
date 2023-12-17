@@ -1,22 +1,9 @@
-package webProgramming.recommendTravel.domain.user;
+package webProgramming.recommendTravel.dto;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import jakarta.persistence.Column;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@ToString
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cid;
-    //    @Column(nullable = false, length = 25, unique = true)
-    @Column
+public class UserRequest {
+
     private String userid;
     //    @Column(nullable = false, length = 25)
     @Column
@@ -31,14 +18,7 @@ public class User {
     @Column
     private String mbti_type;
 
-    // getters and setters
-    public Long getCid() {
-        return cid;
-    }
-
-    public void setCid(Long cid) {
-        this.cid = cid;
-    }
+    //getters and setters
 
     public String getUserid() {
         return userid;
@@ -79,6 +59,9 @@ public class User {
     public void setMbti_type(String mbti_type) {
         this.mbti_type = mbti_type;
     }
+
+
+
 
 
 }
