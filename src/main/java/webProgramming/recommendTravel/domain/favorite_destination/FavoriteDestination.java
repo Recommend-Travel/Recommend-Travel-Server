@@ -14,7 +14,6 @@ import webProgramming.recommendTravel.domain.userfavorite.UserFavorite;
 @Getter
 @ToString
 public class FavoriteDestination {
-    // 보류
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fdId;

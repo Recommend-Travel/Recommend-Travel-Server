@@ -21,8 +21,8 @@ public class UserFavorite {
     @ManyToOne
     @JoinColumn(name = "cid")
     private User user;
-//    @Column(nullable = false)
-    @Column
+    @Column(nullable = false)
+//    @Column
     private Date dateAdded;
 
 }
