@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import webProgramming.recommendTravel.common.AccessTokenGenerator;
 import webProgramming.recommendTravel.domain.user.User;
 import webProgramming.recommendTravel.dto.UserRequest;
+import webProgramming.recommendTravel.service.user.DeleteService;
 import webProgramming.recommendTravel.service.user.UserService;
 
 import java.util.Map;
@@ -18,11 +19,13 @@ public class UserController {
     // 아이디 비번 api 여기서 받음
 
     private final UserService userService;
+    private final DeleteService deleteService;
     private final AccessTokenGenerator accessTokenGenerator = null;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, DeleteService deleteService) {
         this.userService = userService;
+        this.deleteService = deleteService;
     }
 
     @PostMapping("/register")
@@ -62,7 +65,7 @@ public class UserController {
     public ResponseEntity<Object> deleteUser(@PathVariable String userid) {
         try {
             // 회원 탈퇴 시, 사용자 정보 삭제
-            userService.deleteUser(userid);
+            deleteService.deleteUser(userid);
             return ResponseEntity.ok(Map.of("status", 200, "message", "회원 탈퇴가 완료되었습니다."));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
