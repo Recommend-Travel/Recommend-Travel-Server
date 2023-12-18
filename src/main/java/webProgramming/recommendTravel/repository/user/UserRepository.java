@@ -5,4 +5,5 @@ import webProgramming.recommendTravel.domain.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean findByUsername(String username);
+    User findByuserid(String userid);
 }
