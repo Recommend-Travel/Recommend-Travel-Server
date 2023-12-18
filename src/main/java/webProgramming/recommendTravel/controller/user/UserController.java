@@ -58,5 +58,19 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("/delete/{userid}")
+    public ResponseEntity<Object> deleteUser(@PathVariable String userid) {
+        try {
+            // 회원 탈퇴 시, 사용자 정보 삭제
+            userService.deleteUser(userid);
+            return ResponseEntity.ok(Map.of("status", 200, "message", "회원 탈퇴가 완료되었습니다."));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("status", 401, "message", "인증 실패. 유효하지 않은 사용자 정보입니다"));
+        }
+    }
+
+
+
 
 }
