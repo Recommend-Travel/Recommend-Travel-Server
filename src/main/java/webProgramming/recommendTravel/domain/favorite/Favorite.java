@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import webProgramming.recommendTravel.domain.user.User;
+import webProgramming.recommendTravel.dto.userfavorite.response.FavoriteDTORes;
 
 @Entity
 @AllArgsConstructor
@@ -23,4 +24,8 @@ public class Favorite {
     @ManyToOne
     @JoinColumn(name = "cid")
     private User user;
+
+    public FavoriteDTORes getFavoriteDTO() {
+        return new FavoriteDTORes(user.getUserid(), destinationName, imgUrl);
+    }
 }

@@ -3,6 +3,7 @@ package webProgramming.recommendTravel.service.zzim;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import webProgramming.recommendTravel.common.TokenParser;
 import webProgramming.recommendTravel.domain.destination.Destination;
 import webProgramming.recommendTravel.domain.favorite.Favorite;
 import webProgramming.recommendTravel.domain.favorite_destination.FavoriteDestination;
@@ -33,11 +34,15 @@ public class ZZIMService {
     @Autowired
     private DestinationRepository destinationRepository;
 
-    public FavoriteDTORes doZZim(FavoriteDTOReq dto) { // 대대적인 수정을 해야함
-        return null;
+    public FavoriteDTORes doZZim(FavoriteDTOReq dto) {
+        String userId = TokenParser.extractUserIdFromToken(dto.getToken());
+        User user = userRepository.findByuserid(userId);
+        Favorite favorite = new Favorite(null, dto.getDestinationName(), dto.getImgUrl(), user);
+        Favorite result = favoriteRepository.save(favorite);
+        return result.getFavoriteDTO();
     }
 
-    public DestinationDTORes retrieveList(String userId) { // 대대적인 수정을 해야함
+    public DestinationDTORes retrieveList(String userId) {
         User user = userRepository.findByuserid(userId); // 사용자 조회
         if (user == null) throw new IllegalArgumentException("사용자가 없어유");
         List<Favorite> favorites = favoriteRepository.findAllByUser(user); // 사용자의 찜목록 조회
