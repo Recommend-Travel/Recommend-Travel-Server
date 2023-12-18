@@ -15,7 +15,8 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+public class Comment
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String commentId;
@@ -25,10 +26,10 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "cid")
     private User user;
-//    @Column(nullable = false, length = 200)
+//  @Column(nullable = false, length = 200)
     @Column
     private String content;
-//    @Column(nullable = false)
+//  @Column(nullable = false)
     @Column
     private Date timestamp;
 }
