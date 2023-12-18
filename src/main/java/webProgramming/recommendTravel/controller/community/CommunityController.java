@@ -1,21 +1,25 @@
 package webProgramming.recommendTravel.controller.community;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webProgramming.recommendTravel.domain.comment.Comment;
 import webProgramming.recommendTravel.domain.communitypost.CommunityPost;
 import webProgramming.recommendTravel.service.community.CommunityService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "https://localhost:3000")
+@Slf4j
 @RequestMapping("/recommend-travel")
 public class CommunityController
 {
-
-    private CommunityService communityService;
+    public CommunityService communityService;
     @Autowired
-    public void communityService(CommunityService communityService)
+    public void CommunityService(CommunityService communityService)
     {
         this.communityService = communityService;
     }
@@ -23,30 +27,35 @@ public class CommunityController
     @PostMapping("/create-post")
     public CommunityPost createPost(@RequestBody PostRequest postRequest)
     {
-        CommunityPost newPost = communityService.makePost(postRequest.getUserid(), postRequest.gettitle(), postRequest.getContent());
+        CommunityPost newPost = communityService.makePost(postRequest.getToken(), postRequest.gettitle(), postRequest.getContent());
 
-        if(newPost != null)
-        {
-            return newPost;
-        }
-        else return null;
+        return newPost;
     }
 
     @PostMapping("/add-comment")
     public Comment addComment(@RequestBody CommentRequest commentRequest)
     {
-        Comment newComment = communityService.addComment(commentRequest.getUserid(), commentRequest.getpostid(), commentRequest.getContent());
+        Comment newComment = communityService.addComment(commentRequest.getToken(), commentRequest.getPostid(), commentRequest.getContent());
 
-        if(newComment != null)
-        {
-            return newComment;
-        }
-        else return null;
+        return newComment;
     }
 
     @GetMapping("/posts")
-    public List getPosts()
+    public List<CommunityPost> getPosts()
     {
         return communityService.getPosts();
+    }
+
+    @GetMapping("/getpostinfo")
+    public Map<String,Object> getPostInfo(@RequestParam Long postid) {
+        Map<String,Object> result = new HashMap<>();
+
+        List<Comment> comments = communityService.getPostCommentInfo(postid);
+        CommunityPost communityPost = communityService.getPostInfo(postid);
+
+        result.put("PostInfo", communityPost);
+        result.put("commentsInfo", comments);
+
+        return result;
     }
 }
