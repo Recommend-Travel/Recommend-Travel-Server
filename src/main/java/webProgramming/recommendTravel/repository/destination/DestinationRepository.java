@@ -8,3 +8,4 @@ import java.util.Optional;
 public interface DestinationRepository extends JpaRepository<Destination, Long> {
     Optional<Destination> findByMbti(String mbtiType);
 }
+

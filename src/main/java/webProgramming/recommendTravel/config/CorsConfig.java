@@ -13,6 +13,6 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000") // 프론트엔드 서버의 정확한 URL
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("")
-                .allowCredentials(true); // 크레덴셜 허용
+
     }
 }

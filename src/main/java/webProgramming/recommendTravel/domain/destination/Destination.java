@@ -6,6 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import webProgramming.recommendTravel.domain.favorite.Favorite;
+import webProgramming.recommendTravel.dto.destination.request.DestinationDTOReq;
+import webProgramming.recommendTravel.dto.destination.response.DestinationDTORes;
+import webProgramming.recommendTravel.dto.destination.response.RecommendDestination;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -45,5 +51,15 @@ public class Destination {
 
     @Transient // 데이터베이스에 저장되지 않는 필드
     private List<RecommendedDestination> recommendedDestinations;
-}
 
+
+    public DestinationDTORes getDestDTO(List<Favorite> favorites) {
+        List<RecommendDestination> recomDests = new ArrayList<RecommendDestination>();
+        for (Favorite favorite : favorites) {
+            String name = favorite.getDestinationName();
+            String url = favorite.getImgUrl();
+            recomDests.add(new RecommendDestination(name, url));
+        }
+        return new DestinationDTORes(mbti, recomDests);
+    }
+}
