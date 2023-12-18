@@ -3,7 +3,12 @@ package webProgramming.recommendTravel.repository.communitypost;
 import org.springframework.data.jpa.repository.JpaRepository;
 import webProgramming.recommendTravel.domain.communitypost.CommunityPost;
 
-public interface CommunityPostRepository extends JpaRepository<CommunityPost, Long>
-{
-    CommunityPost findBypostId(Long postId);
+import webProgramming.recommendTravel.domain.user.User;
+
+import java.util.List;
+
+public interface CommunityPostRepository extends JpaRepository<CommunityPost, Long> {
+    List<CommunityPost> findByUser(User user);
+
+    void deleteByUser(User user);
 }

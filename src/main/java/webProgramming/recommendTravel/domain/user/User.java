@@ -15,20 +15,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cid;
-    //    @Column(nullable = false, length = 25, unique = true)
-    @Column
+
+    @Column(nullable = false, length = 25, unique = true)
+//    @Column
     private String userid;
-    //    @Column(nullable = false, length = 25)
-    @Column
+    @Column(nullable = false, length = 25)
+//    @Column
     private String username;
-    //    @Column(nullable = false, length = 25)
-    @Column
+    @Column(nullable = false, length = 25)
+//    @Column
     private String password;
-    //    @Column(length = 100)
-    @Column
+    @Column(length = 100)
+//    @Column
     private String email;
-    //    @Column(length = 4)
-    @Column
+    @Column(length = 4)
     private String mbti_type;
 
     // getters and setters
