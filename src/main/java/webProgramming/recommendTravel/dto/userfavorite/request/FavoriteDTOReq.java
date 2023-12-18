@@ -8,6 +8,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class FavoriteDTOReq {
-    private String user_id;
-    private Long destination_id;
+    private String UserId;
+    private String destinationName;
+    private String imgUrl;
 }

@@ -9,20 +9,6 @@ import webProgramming.recommendTravel.domain.user.User;
 
 import java.util.Date;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@ToString
 public class UserFavorite {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long favoriteId;
-    @ManyToOne
-    @JoinColumn(name = "cid")
-    private User user;
-    @Column(nullable = false)
-//    @Column
-    private Date dateAdded;
-
+    // 미사용
 }

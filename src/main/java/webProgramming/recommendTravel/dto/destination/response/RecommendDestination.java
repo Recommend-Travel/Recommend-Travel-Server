@@ -2,16 +2,14 @@ package webProgramming.recommendTravel.dto.destination.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.List;
-
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
-@Setter
 @ToString
-public class DestinationDTORes {
-    private String mbti;
-    private List<RecommendDestination> favoriteDestinations;
+public class RecommendDestination {
+    private String name; // 장소
+    private String url; // 사진
 }

@@ -8,19 +8,6 @@ import lombok.ToString;
 import webProgramming.recommendTravel.domain.destination.Destination;
 import webProgramming.recommendTravel.domain.userfavorite.UserFavorite;
 
-@Entity
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@ToString
 public class FavoriteDestination {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long fdId;
-    @ManyToOne
-    @JoinColumn(name = "destinationId")
-    private Destination destination;
-    @ManyToOne
-    @JoinColumn(name = "favoriteId")
-    private UserFavorite userFavorite;
+    // 미사용
 }

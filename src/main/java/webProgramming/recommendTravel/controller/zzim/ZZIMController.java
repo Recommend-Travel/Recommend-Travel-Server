@@ -12,6 +12,7 @@ import webProgramming.recommendTravel.service.zzim.ZZIMService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/recommend-travel/favorites")
 @Slf4j
@@ -22,8 +23,9 @@ public class ZZIMController {
     /*찜하기
     jsonCopy code
     { post 요청
-      "user_id": 123,
-      "destination_id": 1
+      UserID: "dbalsend"(토큰), - 이건 어캐 처리하는지는 쫌있다가 보자
+      destinationName: "도시",
+      imgUrl: "이미지 주소"
     }
     jsonCopy code
     { post 응답(성공)
@@ -38,7 +40,7 @@ public class ZZIMController {
     @PostMapping("/add-to-favorites")
     public ResponseEntity<FavoriteDTORes> doZZim(@RequestBody FavoriteDTOReq dto) {
         log.info("리퀘 : " + dto.toString());
-        FavoriteDTORes favorite = zzimService.doZZim(dto.getUser_id(), dto.getDestination_id());
+        FavoriteDTORes favorite = zzimService.doZZim(dto);
         log.info("페이보릿 : " + favorite.toString());
         return favorite != null ?
                  ResponseEntity.status(HttpStatus.OK).body(favorite) :
@@ -70,11 +72,11 @@ public class ZZIMController {
             "message": "잘못된 요청입니다. 필수 정보가 누락되었거나 형식이 올바르지 않습니다."
         }
      */
-    @GetMapping("/favorites/{user_id}")
-    public ResponseEntity<List<DestinationDTORes>> retrieveList(@PathVariable String user_id) {
-        List<DestinationDTORes> favorites = zzimService.retrieveList(user_id);
-        return favorites != null ?
-                ResponseEntity.status(HttpStatus.OK).body(favorites) :
+    @GetMapping("/{user_id}")
+    public ResponseEntity<DestinationDTORes> retrieveList(@PathVariable String user_id) {
+        DestinationDTORes destinationDTORes = zzimService.retrieveList(user_id);
+        return destinationDTORes != null ?
+                ResponseEntity.status(HttpStatus.OK).body(destinationDTORes) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
     }
