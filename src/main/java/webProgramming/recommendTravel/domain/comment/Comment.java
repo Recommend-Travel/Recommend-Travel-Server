@@ -11,24 +11,27 @@ import webProgramming.recommendTravel.domain.user.User;
 import java.util.Date;
 
 @Entity
-@Getter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+@Getter
+@ToString
+public class Comment
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String commentId;
+    private Long commentId;
+
     @ManyToOne
     @JoinColumn(name = "postId")
     private CommunityPost communityPost;
+
     @ManyToOne
     @JoinColumn(name = "cid")
     private User user;
-//    @Column(nullable = false, length = 200)
-    @Column
+
+    @Column(nullable = false, length = 200)
     private String content;
-//    @Column(nullable = false)
-    @Column
+
+    @Column(nullable = false)
     private Date timestamp;
 }
