@@ -21,16 +21,16 @@ public class CommunityPost {
     @ManyToOne
     @JoinColumn(name = "cid")
     private User user;
-//    @Column(nullable = false, length = 4)
-    @Column
+    @Column(nullable = false, length = 4)
+//    @Column
     private String mbti_type;
-//    @Column(nullable = false, length = 100)
-    @Column
+    @Column(nullable = false, length = 100)
+//    @Column
     private String title;
-//    @Column(nullable = false, length = 350)
-    @Column
+    @Column(nullable = false, length = 350)
+//    @Column
     private String content;
-//    @Column(nullable = false)
-    @Column
+    @Column(nullable = false)
+//    @Column
     private Date timestamp;
 }

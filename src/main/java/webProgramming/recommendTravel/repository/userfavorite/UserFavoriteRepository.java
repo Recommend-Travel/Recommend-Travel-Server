@@ -6,4 +6,5 @@ import webProgramming.recommendTravel.domain.userfavorite.UserFavorite;
 
 public interface UserFavoriteRepository extends JpaRepository<UserFavorite, Long> {
     void deleteByUser(User user);
+
 }
