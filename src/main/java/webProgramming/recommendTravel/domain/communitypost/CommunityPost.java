@@ -1,11 +1,10 @@
-package webProgramming.recommendTravel.domain.comment;
+package webProgramming.recommendTravel.domain.communitypost;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import webProgramming.recommendTravel.domain.communitypost.CommunityPost;
 import webProgramming.recommendTravel.domain.user.User;
 
 import java.util.Date;
@@ -15,17 +14,20 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @ToString
-public class Comment {
+public class CommunityPost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
-    @ManyToOne
-    @JoinColumn(name = "postId")
-    private CommunityPost communityPost;
+    private Long postId;
     @ManyToOne
     @JoinColumn(name = "cid")
     private User user;
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, length = 4)
+//    @Column
+    private String mbti_type;
+    @Column(nullable = false, length = 100)
+//    @Column
+    private String title;
+    @Column(nullable = false, length = 350)
 //    @Column
     private String content;
     @Column(nullable = false)
