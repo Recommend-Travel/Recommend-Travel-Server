@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import webProgramming.recommendTravel.dto.destination.request.DestinationDTOReq;
+import webProgramming.recommendTravel.dto.destination.response.DestinationDTORes;
 
 @Entity
 @AllArgsConstructor
@@ -33,4 +35,8 @@ public class Destination {
     @Column(length = 250)
 //    @Column
     private String otherAttributes;
+
+    public DestinationDTORes getDTO() {
+        return new DestinationDTORes(destinationId, name, description);
+    }
 }
