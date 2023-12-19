@@ -36,6 +36,4 @@ public class CommunityPost {
 //    @Column
     private Date timestamp;
 
-    public CommunityPost(Long postId, Optional<User> tempuser, String mbtiType, String title, String content, Date currentDate) {
-    }
 }

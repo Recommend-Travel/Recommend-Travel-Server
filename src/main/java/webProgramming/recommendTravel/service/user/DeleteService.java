@@ -34,15 +34,15 @@ public class DeleteService {
         Optional<User> optionalUser = userRepository.findByUserid(userid);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            // 여기에서 관련된 데이터 삭제 또는 처리 수행
 
             // 1. 게시글 및 댓글 삭제
             List<CommunityPost> communityPosts = communityPostRepository.findByUser(user);
             for (CommunityPost post : communityPosts) {
                 // Delete associated comments
                 commentRepository.deleteByCommunityPost(post);
+                // Delete community post
+                communityPostRepository.delete(post);
             }
-            communityPostRepository.deleteByUser(user);
 
             // 2. 찜 삭제
             favoriteRepository.deleteByUser(user);
@@ -53,4 +53,5 @@ public class DeleteService {
             throw new RuntimeException("사용자를 찾을 수 없습니다.");
         }
     }
+
 }

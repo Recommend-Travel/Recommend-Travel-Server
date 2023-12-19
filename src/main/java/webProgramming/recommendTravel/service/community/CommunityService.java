@@ -41,7 +41,7 @@ public class CommunityService
             throw new RuntimeException("User not found");
         }
 
-        CommunityPost newPost = new CommunityPost(null, tempuser, tempuser.orElse(null).getMbti_type(), title, content, currentDate);
+        CommunityPost newPost = new CommunityPost(null, tempuser.orElse(null), tempuser.orElse(null).getMbti_type(), title, content, currentDate);
         communityPostRepository.save(newPost);
         return newPost;
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import webProgramming.recommendTravel.common.AccessTokenGenerator;
+import webProgramming.recommendTravel.common.Exceptions;
 import webProgramming.recommendTravel.domain.user.User;
 import webProgramming.recommendTravel.dto.UserRequest;
 import webProgramming.recommendTravel.service.user.DeleteService;
@@ -33,17 +34,24 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity registerUser(@RequestBody UserRequest userRequest) {
         try {
-            userService.registerUser(userRequest.getUserid() ,userRequest.getUsername(),
+            userService.registerUser(userRequest.getUserid(), userRequest.getUsername(),
                     userRequest.getPassword(), userRequest.getEmail(), userRequest.getMbti_type());
             return ResponseEntity.ok()
                     .body(Map.of("status", 200, "message", "사용자 회원가입이 완료되었습니다."));
+        } catch (Exceptions.DuplicateEntryException e) {
+            // 중복된 사용자 이름 또는 이메일로 인한 예외 처리
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("status", HttpStatus.CONFLICT.value(), "message", e.getMessage()));
+        } catch (Exceptions.RegistrationException e) {
+            // 일반적인 등록 실패에 대한 예외 처리
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("status", HttpStatus.BAD_REQUEST.value(), "message", "사용자 회원가입에 실패했습니다."));
         } catch (Exception e) {
-            // 회원가입 실패 시
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            // 여기서 HttpStatus.BAD_REQUEST를 다른 원하는 상태 코드로 변경할 수 있습니다.
+            // 기타 예외 처리
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
     }
+
 
     @PostMapping("/login")
     public ResponseEntity loginUser(@RequestBody UserRequest userRequest) {
