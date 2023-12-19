@@ -1,13 +1,12 @@
 package webProgramming.recommendTravel.service.user;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import webProgramming.recommendTravel.domain.communitypost.CommunityPost;
+import webProgramming.recommendTravel.common.Exceptions;
 import webProgramming.recommendTravel.domain.user.User;
-import webProgramming.recommendTravel.domain.userfavorite.UserFavorite;
 import webProgramming.recommendTravel.repository.user.UserRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,13 +17,19 @@ public class UserService {
     }
 
     public User registerUser(String userid, String username, String password, String email, String mbtiType) {
-        User user = new User();
-        user.setUserid(userid);
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setEmail(email);
-        user.setMbti_type(mbtiType);
-        return userRepository.save(user);
+        try {
+            User user = new User();
+            user.setUserid(userid);
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+            user.setMbti_type(mbtiType);
+            return userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new Exceptions.DuplicateEntryException("Username or email is already taken.", e);
+        } catch (Exception e) {
+            throw new Exceptions.RegistrationException("Failed to register user.", e);
+        }
     }
 
 
